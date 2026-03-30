@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЖК Балка — Современный жилой комплекс</title>
+<link href="https://fonts.cdnfonts.com/css/cera-pro" rel="stylesheet">
+<style>
+  :root {
+    --cream: #ffffff;
+    --warm-white: #ffffff;
+    --stone: #EBEBEB;
+    --sand: #D4C9B8;
+    --clay: #999999;
+    --charcoal: #222222;
+    --dark: #111111;
+    --accent: #7B9E6E;
+    --accent-light: #A8C49A;
+    --accent-pale: #EAF0E7;
+    --sold: #CCCCCC;
+    --gold: #C8A96E;
+    --radius: 16px;
+    --shadow: 0 8px 40px rgba(0,0,0,0.07);
+    --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cera Pro', 'Nunito Sans', sans-serif;
+    background: #fff;
+    color: var(--charcoal);
+    overflow-x: hidden;
+    font-size: 17px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    padding: 0 48px;
+    height: 76px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-size: 22px; font-weight: 800; color: var(--dark);
+    letter-spacing: -0.5px; text-decoration: none;
+    display: flex; align-items: center; gap: 12px;
+    text-transform: uppercase;
+  }
+
+  .nav-logo-icon {
+    width: 36px; height: 36px; background: var(--accent);
+    border-radius: 9px; display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 15px; font-weight: 800; flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 4px;
+    flex: 1; justify-content: center;
+  }
+
+  .nav-links a {
+    text-decoration: none; color: var(--charcoal);
+    font-size: 13px; font-weight: 700;
+    padding: 9px 16px; border-radius: 8px;
+    transition: var(--transition); white-space: nowrap;
+    text-transform: uppercase; letter-spacing: 0.8px;
+  }
+
+  .nav-links a:hover { background: var(--stone); color: var(--dark); }
+
+  .nav-cta {
+    background: var(--accent) !important; color: white !important;
+    font-weight: 700 !important; letter-spacing: 0.8px;
+  }
+  .nav-cta:hover { background: #6a8d5e !important; }
+
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 8px;
+  }
+  .hamburger span {
+    width: 26px; height: 2px; background: var(--charcoal);
+    border-radius: 2px; display: block; transition: var(--transition);
+  }
+
+  .mobile-menu {
+    display: none; position: fixed; top: 76px; left: 0; right: 0;
+    background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
+    padding: 16px 24px; z-index: 999;
+    border-bottom: 1px solid var(--stone);
+    flex-direction: column; gap: 4px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    text-decoration: none; color: var(--charcoal); font-size: 16px;
+    font-weight: 700; padding: 13px 18px; border-radius: 10px;
+    transition: var(--transition); text-transform: uppercase; letter-spacing: 0.8px;
+  }
+  .mobile-menu a:hover { background: var(--stone); }
+
+  /* ── HERO ── */
+  #hero {
+    height: 100vh; min-height: 620px;
+    position: relative; display: flex; align-items: center;
+    justify-content: center; overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(160deg, rgba(20,20,20,0.6) 0%, rgba(20,20,20,0.35) 60%, rgba(100,140,90,0.2) 100%),
+      url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=80') center/cover no-repeat;
+    transform: scale(1.03);
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.5) 100%);
+  }
+
+  .hero-content {
+    position: relative; z-index: 1; text-align: center;
+    padding: 0 24px; animation: fadeUp 1s ease both;
+    width: 100%; max-width: 900px;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.14); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 9px 20px; border-radius: 50px; margin-bottom: 32px;
+    color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .hero-badge::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent-light);
+  }
+
+  .hero-title {
+    font-size: clamp(56px, 10vw, 120px);
+    font-weight: 800; color: white;
+    letter-spacing: -2px; line-height: 0.93;
+    margin-bottom: 22px;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  }
+
+  .hero-sub {
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: rgba(255,255,255,0.8); font-weight: 400;
+    margin-bottom: 24px; letter-spacing: 0.2px;
+  }
+
+  /* HERO STATS */
+  .hero-stats {
+    display: flex; justify-content: center; gap: 0;
+    margin-bottom: 44px; flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    padding: 18px 32px;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    text-align: center;
+  }
+  .hero-stat:first-child { border-left: 1px solid rgba(255,255,255,0.2); }
+
+  .hero-stat-num {
+    font-size: 28px; font-weight: 800; color: white;
+    letter-spacing: -0.5px; display: block; line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-stat-label {
+    font-size: 13px; color: rgba(255,255,255,0.65);
+    font-weight: 500;
+  }
+
+  .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--accent); color: white;
+    padding: 17px 36px; border-radius: 12px;
+    text-decoration: none; font-weight: 700; font-size: 17px;
+    transition: var(--transition); border: none; cursor: pointer;
+    font-family: inherit; letter-spacing: 0.2px;
+  }
+  .btn-primary:hover { background: #6a8d5e; transform: translateY(-2px); box-shadow: 0 14px 32px rgba(123,158,110,0.4); }
+
+  .btn-ghost {
+    background: rgba(255,255,255,0.14); color: white;
+    padding: 17px 36px; border-radius: 12px;
+    text-decoration: none; font-weight: 700; font-size: 17px;
+    transition: var(--transition); border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(8px); cursor: pointer; font-family: inherit;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.55); font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; display: flex; flex-direction: column;
+    align-items: center; gap: 10px; z-index: 1;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.55), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* ── SHARED SECTION ── */
+  section { padding: 110px 48px; max-width: 1280px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 13px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 18px;
+  }
+
+  .section-title {
+    font-size: clamp(36px, 5vw, 62px);
+    font-weight: 800; color: var(--dark);
+    letter-spacing: -1.5px; line-height: 1.05;
+    margin-bottom: 18px;
+  }
+
+  .section-desc {
+    font-size: 18px; color: var(--clay);
+    font-weight: 400; line-height: 1.7;
+    max-width: 580px;
+  }
+
+  /* divider between full-width sections */
+  .section-divider {
+    border: none; height: 1px;
+    background: var(--stone); margin: 0;
+  }
+
+  /* ── PLAN BLOCK ── */
+  #floorplan { max-width: 100%; padding: 110px 48px; background: #fff; }
+  .plan-inner { max-width: 1280px; margin: 0 auto; }
+  .plan-header { margin-bottom: 52px; }
+
+  .plan-tabs {
+    display: inline-flex; background: var(--stone);
+    border-radius: 13px; padding: 4px; margin-bottom: 40px;
+  }
+
+  .plan-tab {
+    padding: 12px 32px; border-radius: 10px; border: none;
+    font-family: inherit; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: var(--transition);
+    color: var(--clay); background: transparent;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .plan-tab.active {
+    background: white; color: var(--dark);
+    box-shadow: 0 2px 14px rgba(0,0,0,0.1);
+  }
+
+  .plan-container {
+    display: grid; grid-template-columns: 72px 1fr;
+    gap: 24px; align-items: start;
+  }
+
+  .floor-switcher {
+    display: flex; flex-direction: column; gap: 6px;
+    background: #fff; border-radius: 13px;
+    padding: 8px; border: 1.5px solid var(--stone);
+  }
+
+  .floor-btn {
+    width: 56px; height: 48px; border: none; border-radius: 9px;
+    font-family: inherit; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: var(--transition);
+    color: var(--clay); background: transparent;
+  }
+  .floor-btn.active {
+    background: var(--accent); color: white;
+    box-shadow: 0 4px 14px rgba(123,158,110,0.35);
+  }
+  .floor-btn:hover:not(.active) { background: var(--stone); color: var(--dark); }
+
+  .plan-wrapper {
+    background: #fff; border-radius: 20px;
+    padding: 32px; border: 1.5px solid var(--stone);
+    position: relative; overflow: visible;
+  }
+
+  .plan-legend {
+    display: flex; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; align-items: center;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 9px;
+    font-size: 14px; color: var(--clay); font-weight: 600;
+  }
+  .legend-dot { width: 16px; height: 16px; border-radius: 5px; }
+
+  .plan-svg-container { position: relative; }
+
+  /* SVG apt styles */
+  .apt { cursor: pointer; transition: var(--transition); }
+  .apt rect, .apt polygon { transition: var(--transition); stroke: rgba(255,255,255,0.7); stroke-width: 1.5; }
+  .apt.free rect, .apt.free polygon { fill: var(--accent); }
+  .apt.sold rect, .apt.sold polygon { fill: var(--sold); }
+  .apt.free:hover rect, .apt.free:hover polygon { fill: var(--accent-light); }
+  .apt-label {
+    font-family: 'Cera Pro', sans-serif; font-weight: 700;
+    fill: white; pointer-events: none;
+    text-anchor: middle; dominant-baseline: middle;
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: fixed; z-index: 9999;
+    background: var(--dark); color: white;
+    border-radius: 14px; padding: 16px 20px;
+    pointer-events: none; opacity: 0;
+    transition: opacity 0.2s ease;
+    min-width: 190px; font-size: 14px; line-height: 1.65;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.28);
+  }
+  .tooltip.show { opacity: 1; }
+  .tooltip-num { font-size: 17px; font-weight: 800; margin-bottom: 8px; color: var(--accent-light); }
+  .tooltip-row { display: flex; justify-content: space-between; gap: 18px; color: rgba(255,255,255,0.7); }
+  .tooltip-row strong { color: white; }
+
+  /* ── INSTALLMENT ── */
+  #installment { max-width: 100%; padding: 110px 48px; background: #F8F8F8; }
+  .inst-inner { max-width: 1280px; margin: 0 auto; }
+
+  .inst-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: start; margin-top: 60px;
+  }
+
+  .size-selector { display: flex; gap: 10px; margin-bottom: 32px; }
+
+  .size-btn {
+    padding: 13px 24px; border: 2px solid var(--stone);
+    background: white; border-radius: 12px; cursor: pointer;
+    font-family: inherit; font-size: 16px; font-weight: 700;
+    color: var(--clay); transition: var(--transition);
+  }
+  .size-btn.active {
+    border-color: var(--accent); background: var(--accent-pale);
+    color: var(--accent);
+  }
+  .size-btn:hover:not(.active) { border-color: #ccc; color: var(--charcoal); }
+
+  .calc-card {
+    background: white; border-radius: 20px;
+    border: 1.5px solid var(--stone); padding: 36px;
+    box-shadow: var(--shadow);
+  }
+
+  .calc-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 17px 0; border-bottom: 1px solid var(--stone);
+  }
+  .calc-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .calc-label { font-size: 15px; color: var(--clay); font-weight: 600; }
+  .calc-value { font-size: 19px; font-weight: 700; color: var(--dark); }
+  .calc-value.accent { color: var(--accent); font-size: 23px; }
+  .calc-value.gold { color: var(--gold); }
+
+  .inst-info { display: flex; flex-direction: column; gap: 20px; }
+
+  .info-card {
+    background: white; border-radius: 16px; padding: 28px;
+    border: 1.5px solid var(--stone);
+    display: flex; gap: 20px; align-items: flex-start;
+  }
+  .info-icon {
+    width: 50px; height: 50px; border-radius: 12px;
+    background: var(--accent-pale); display: flex; align-items: center;
+    justify-content: center; font-size: 22px; flex-shrink: 0;
+  }
+  .info-title { font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  .info-text { font-size: 15px; color: var(--clay); line-height: 1.65; }
+
+  /* ── GALLERY ── */
+  #gallery { max-width: 1280px; }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-top: 52px;
+  }
+  .gallery-item {
+    border-radius: 16px; overflow: hidden;
+    cursor: pointer; position: relative;
+    background: var(--stone); aspect-ratio: 4/3;
+    transition: var(--transition);
+  }
+  .gallery-item:nth-child(1) { grid-column: span 2; aspect-ratio: 16/9; }
+  .gallery-item:nth-child(5) { grid-column: span 2; aspect-ratio: 16/9; }
+  .gallery-item:hover { transform: scale(1.015); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+  .gallery-placeholder {
+    width: 100%; height: 100%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #EBEBEB 0%, #D8D8D8 100%);
+    color: #aaa; gap: 10px;
+  }
+  .gallery-placeholder svg { opacity: 0.4; }
+  .gallery-placeholder span { font-size: 14px; font-weight: 600; opacity: 0.7; }
+
+  .gallery-overlay {
+    position: absolute; inset: 0; background: rgba(0,0,0,0.35);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: var(--transition);
+  }
+  .gallery-overlay svg { color: white; }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 9998;
+    background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+  }
+  .lightbox.open { opacity: 1; pointer-events: all; }
+
+  .lightbox-inner {
+    max-width: 90vw; max-height: 85vh;
+    border-radius: 20px; overflow: hidden; position: relative;
+    background: #222; display: flex; align-items: center;
+    justify-content: center; min-width: 400px; min-height: 300px;
+  }
+  .lightbox-placeholder {
+    width: 80vw; height: 60vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    color: #666; gap: 14px;
+  }
+  .lightbox-placeholder span { font-size: 17px; font-weight: 600; }
+
+  .lightbox-close {
+    position: absolute; top: 20px; right: 20px;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: rgba(255,255,255,0.12); border: none; cursor: pointer;
+    color: white; font-size: 20px; display: flex; align-items: center;
+    justify-content: center; transition: var(--transition);
+    backdrop-filter: blur(8px);
+  }
+  .lightbox-close:hover { background: rgba(255,255,255,0.25); transform: rotate(90deg); }
+
+  /* ── ABOUT ── */
+  #about { max-width: 100%; padding: 110px 48px; background: var(--dark); }
+  .about-inner { max-width: 1280px; margin: 0 auto; }
+  #about .section-title { color: white; }
+  #about .section-label { color: var(--accent-light); }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: center; margin-top: 60px;
+  }
+
+  .about-text { color: rgba(255,255,255,0.62); font-size: 17px; line-height: 1.8; }
+
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .stat-card {
+    background: rgba(255,255,255,0.05); border-radius: 16px;
+    padding: 28px; border: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-num {
+    font-size: 44px; font-weight: 800; color: white;
+    letter-spacing: -1.5px; margin-bottom: 6px;
+  }
+  .stat-label { font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 600; }
+
+  /* ── CONTACTS ── */
+  #contacts { max-width: 1280px; }
+
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    margin-top: 60px; align-items: start;
+  }
+
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  input, textarea {
+    font-family: inherit; font-size: 16px;
+    background: #F8F8F8; border: 1.5px solid var(--stone);
+    border-radius: 12px; padding: 15px 20px; color: var(--dark);
+    transition: var(--transition); width: 100%; outline: none;
+  }
+  input:focus, textarea:focus { border-color: var(--accent); background: white; }
+  textarea { resize: vertical; min-height: 130px; }
+
+  .form-submit {
+    padding: 17px; border-radius: 12px;
+    background: var(--accent); color: white; border: none;
+    font-family: inherit; font-size: 17px; font-weight: 700;
+    cursor: pointer; transition: var(--transition);
+  }
+  .form-submit:hover { background: #6a8d5e; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(123,158,110,0.35); }
+
+  .contact-info { display: flex; flex-direction: column; gap: 16px; }
+
+  .contact-card {
+    background: #F8F8F8; border-radius: 16px; padding: 22px 24px;
+    border: 1.5px solid var(--stone); display: flex; gap: 16px; align-items: flex-start;
+  }
+  .contact-icon {
+    width: 46px; height: 46px; border-radius: 12px;
+    background: var(--accent-pale); display: flex; align-items: center;
+    justify-content: center; font-size: 20px; flex-shrink: 0;
+  }
+  .contact-label { font-size: 12px; color: var(--clay); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .contact-value { font-size: 17px; color: var(--dark); font-weight: 700; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,0.4);
+    text-align: center; padding: 34px 48px; font-size: 14px;
+  }
+  footer strong { color: rgba(255,255,255,0.7); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    section { padding: 80px 24px; }
+    #floorplan, #installment, #about { padding: 80px 24px; }
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    .inst-grid { grid-template-columns: 1fr; gap: 36px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .form-row { grid-template-columns: 1fr; }
+
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:nth-child(1) { grid-column: span 2; }
+    .gallery-item:nth-child(5) { grid-column: span 1; }
+
+    .plan-container { grid-template-columns: 60px 1fr; gap: 12px; }
+    .floor-btn { width: 44px; height: 42px; font-size: 13px; }
+
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .hero-stat { padding: 14px 20px; }
+    .hero-stat-num { font-size: 22px; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-title { letter-spacing: -1px; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .gallery-item:nth-child(1), .gallery-item:nth-child(5) { grid-column: span 1; }
+    .plan-container { grid-template-columns: 1fr; }
+    .floor-switcher { flex-direction: row; flex-wrap: wrap; gap: 4px; }
+    .floor-btn { width: 44px; height: 38px; }
+    .size-selector { flex-wrap: wrap; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .lightbox-inner { min-width: 90vw; }
+    .hero-stats { flex-direction: column; gap: 0; }
+    .hero-stat { border-right: none !important; border-top: 1px solid rgba(255,255,255,0.2); }
+    .hero-stat:first-child { border-left: none; border-top: 1px solid rgba(255,255,255,0.2); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-icon">ЖК</div>
+    Балка
+  </a>
+  <div class="nav-links">
+    <a href="#floorplan">Выбрать квартиру</a>
+    <a href="#installment">Рассрочка</a>
+    <a href="#gallery">Галерея</a>
+    <a href="#about">О нас</a>
+    <a href="#contacts" class="nav-cta">Контакты</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#floorplan" onclick="toggleMenu()">Выбрать квартиру</a>
+  <a href="#installment" onclick="toggleMenu()">Рассрочка</a>
+  <a href="#gallery" onclick="toggleMenu()">Галерея</a>
+  <a href="#about" onclick="toggleMenu()">О нас</a>
+  <a href="#contacts" onclick="toggleMenu()">Контакты</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Продажа квартир · 2026</div>
+    <h1 class="hero-title">ЖК «Балка»</h1>
+    <p class="hero-sub">Современный комплекс на 2 подъезда</p>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">72</span>
+        <span class="hero-stat-label">квартиры на 6 этажей</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">40</span>
+        <span class="hero-stat-label">уже проданы</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">6 000</span>
+        <span class="hero-stat-label">м² общая площадь</span>
+      </div>
+    </div>
+
+    <div class="hero-btns">
+      <a href="#floorplan" class="btn-primary">Выбрать квартиру</a>
+      <a href="#installment" class="btn-ghost">Рассрочка</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Листать</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- FLOOR PLAN -->
+<div id="floorplan">
+<div class="plan-inner">
+  <div class="plan-header">
+    <div class="section-label">Планировка</div>
+    <h2 class="section-title">План здания</h2>
+    <p class="section-desc">Выберите подъезд и этаж, чтобы просмотреть доступные квартиры</p>
+  </div>
+
+  <div class="plan-tabs">
+    <button class="plan-tab active" onclick="selectEntrance(1)">Подъезд 1</button>
+    <button class="plan-tab" onclick="selectEntrance(2)">Подъезд 2</button>
+  </div>
+
+  <div class="plan-container">
+    <div class="floor-switcher" id="floorSwitcher">
+      <button class="floor-btn" onclick="selectFloor(6)">6</button>
+      <button class="floor-btn" onclick="selectFloor(5)">5</button>
+      <button class="floor-btn" onclick="selectFloor(4)">4</button>
+      <button class="floor-btn" onclick="selectFloor(3)">3</button>
+      <button class="floor-btn" onclick="selectFloor(2)">2</button>
+      <button class="floor-btn active" onclick="selectFloor(1)">1</button>
+    </div>
+
+    <div class="plan-wrapper">
+      <div class="plan-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--accent)"></div>
+          Свободна
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--sold)"></div>
+          Продана
+        </div>
+      </div>
+      <div class="plan-svg-container" id="planContainer"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<hr class="section-divider">
+
+<!-- INSTALLMENT -->
+<div id="installment">
+<div class="inst-inner">
+  <div class="section-label">Условия</div>
+  <h2 class="section-title">Рассрочка</h2>
+  <p class="section-desc">На каждую квартиру доступна рассрочка без переплат и скрытых условий</p>
+
+  <div class="inst-grid">
+    <div>
+      <div class="size-selector">
+        <button class="size-btn active" onclick="selectSize(35, this)">35 м²</button>
+        <button class="size-btn" onclick="selectSize(45, this)">45 м²</button>
+        <button class="size-btn" onclick="selectSize(60, this)">60 м²</button>
+      </div>
+      <div class="calc-card">
+        <div class="calc-row">
+          <span class="calc-label">Площадь</span>
+          <span class="calc-value" id="calcSize">35 м²</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-label">Стоимость м²</span>
+          <span class="calc-value">400 $</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-label">Полная стоимость</span>
+          <span class="calc-value accent" id="calcTotal">14 000 $</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-label">Аванс 40%</span>
+          <span class="calc-value gold" id="calcDown">5 600 $</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-label">Остаток</span>
+          <span class="calc-value" id="calcRest">8 400 $</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-label">Ежемесячно / 36 мес.</span>
+          <span class="calc-value accent" id="calcMonthly">233 $ / мес</span>
+        </div>
+      </div>
+    </div>
+    <div class="inst-info">
+      <div class="info-card">
+        <div class="info-icon">📋</div>
+        <div>
+          <div class="info-title">Без банка</div>
+          <div class="info-text">Рассрочка оформляется напрямую от застройщика. Никаких справок и кредитных историй.</div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🔑</div>
+        <div>
+          <div class="info-title">Въезд сразу</div>
+          <div class="info-text">После внесения первоначального взноса вы получаете ключи и можете вселяться.</div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🤝</div>
+        <div>
+          <div class="info-title">Фиксированный курс</div>
+          <div class="info-text">Цена фиксируется в договоре в долларах и не меняется на протяжении всей рассрочки.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<hr class="section-divider">
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-label">Фотографии</div>
+  <h2 class="section-title">Галерея</h2>
+  <p class="section-desc">Внешний вид, интерьеры и окружение жилого комплекса</p>
+
+  <div class="gallery-grid">
+    <div class="gallery-item" onclick="openLightbox(1)">
+      <div class="gallery-placeholder">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Фасад здания</span>
+      </div>
+      <div class="gallery-overlay">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(2)">
+      <div class="gallery-placeholder">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Лестничный пролёт</span>
+      </div>
+      <div class="gallery-overlay">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(3)">
+      <div class="gallery-placeholder">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Кухня-гостиная</span>
+      </div>
+      <div class="gallery-overlay">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(4)">
+      <div class="gallery-placeholder">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Спальня</span>
+      </div>
+      <div class="gallery-overlay">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(5)">
+      <div class="gallery-placeholder">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Придомовая территория</span>
+      </div>
+      <div class="gallery-overlay">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(6)">
+      <div class="gallery-placeholder">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Вид с балкона</span>
+      </div>
+      <div class="gallery-overlay">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(7)">
+      <div class="gallery-placeholder">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Санузел</span>
+      </div>
+      <div class="gallery-overlay">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div id="about">
+<div class="about-inner">
+  <div class="section-label">О проекте</div>
+  <h2 class="section-title">О нас</h2>
+
+  <div class="about-grid">
+    <div>
+      <p class="about-text">
+        ЖК «Балка» — жилой комплекс нового поколения, созданный для комфортной и современной жизни.
+        Два просторных подъезда, 6 этажей, 72 квартиры с продуманными планировками от 35 до 60 м².<br><br>
+        Мы строим честно: никаких скрытых доплат, фиксированные цены, прозрачные условия рассрочки.
+        Сдача объекта — 2026 год. Строительство ведётся в соответствии с современными нормами и стандартами качества.
+      </p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">72</div>
+        <div class="stat-label">Квартиры</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Этажей</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">6 000</div>
+        <div class="stat-label">м² площадь</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2026</div>
+        <div class="stat-label">Год сдачи</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CONTACTS -->
+<section id="contacts">
+  <div class="section-label">Связаться</div>
+  <h2 class="section-title">Контакты</h2>
+  <p class="section-desc">Оставьте заявку и мы ответим в течение одного рабочего дня</p>
+
+  <div class="contact-grid">
+    <div class="contact-form">
+      <div class="form-row">
+        <input type="text" placeholder="Ваше имя">
+        <input type="tel" placeholder="Телефон">
+      </div>
+      <input type="email" placeholder="Email">
+      <textarea placeholder="Комментарий (необязательно)"></textarea>
+      <button class="form-submit">Отправить заявку</button>
+    </div>
+    <div class="contact-info">
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Адрес</div>
+          <div class="contact-value">ул. Примерная, 12, г. Тирасполь</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Телефон</div>
+          <div class="contact-value">+373 (0) 533-00-00</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-label">Режим работы</div>
+          <div class="contact-value">Пн–Пт: 9:00 – 18:00</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">💬</div>
+        <div>
+          <div class="contact-label">WhatsApp / Telegram</div>
+          <div class="contact-value">+373 (0) 533-00-00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 <strong>ЖК «Балка»</strong> — Все права защищены
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <div class="lightbox-placeholder">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span id="lightboxLabel">Фото</span>
+    </div>
+  </div>
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+</div>
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tooltip">
+  <div class="tooltip-num" id="tipNum"></div>
+  <div class="tooltip-row"><span>Площадь:</span><strong id="tipArea"></strong></div>
+  <div class="tooltip-row"><span>Стоимость:</span><strong id="tipPrice"></strong></div>
+  <div class="tooltip-row"><span>Рассрочка:</span><strong style="color:var(--accent-light)">Да</strong></div>
+</div>
+
+<script>
+// ── DATA ──
+const PRICE_PER_M = 400;
+
+// 72 квартиры total: подъезд 1 = 1–36, подъезд 2 = 37–72
+// 6 квартир на этаж в каждом подъезде: 3 слева, 3 справа от лестницы
+// Площади: 35, 45, 60, 35, 45, 60 — разные размеры, чередуются
+// 40 проданных из 72: распределяем реалистично
+
+const SOLD_NUMS = new Set([
+  1,2,3,4,5,6,    // этаж 1 под.1 — весь
+  7,8,9,10,       // этаж 2 под.1 — 4 из 6
+  13,14,15,16,    // этаж 3 под.1 — 4 из 6
+  19,20,          // этаж 4 под.1 — 2 из 6
+  37,38,39,40,41,42, // этаж 1 под.2 — весь
+  43,44,45,46,    // этаж 2 под.2 — 4 из 6
+  49,50,51,52,    // этаж 3 под.2 — 4 из 6
+  55,56,          // этаж 4 под.2 — 2 из 6
+  // итого = 6+4+4+2+6+4+4+2 = 32... добавим ещё 8
+  23,24, 59,60, 29,30, 65,66
+]);
+
+// Площади по позиции внутри этажа (индекс 0–5)
+const AREAS = [35, 45, 60, 60, 45, 35];
+
+function genFloorData(entrance, floor) {
+  const offset = entrance === 1 ? 0 : 36;
+  const base = offset + (floor - 1) * 6;
+  return Array.from({length: 6}, (_, i) => ({
+    num: base + i + 1,
+    area: AREAS[i],
+    free: !SOLD_NUMS.has(base + i + 1)
+  }));
+}
+
+// ── STATE ──
+let curEntrance = 1, curFloor = 1;
+
+// ── SVG PLAN ──
+// Квартиры разного размера — разная ширина пропорционально площади
+function buildFloorSVG(entrance, floor) {
+  const apts = genFloorData(entrance, floor);
+  const W = 620, H = 240;
+  const wallPad = 16;
+  const corridorH = 38;
+  const corridorY = H - wallPad - corridorH;
+  const stairW = 70;
+  const stairX = (W - stairW) / 2;
+  const aptH = corridorY - wallPad - 2;
+
+  // Left side: apts 0,1,2 — proportional widths
+  const leftTotalW = stairX - wallPad - 6;
+  const leftAreas = [apts[0].area, apts[1].area, apts[2].area];
+  const leftSum = leftAreas.reduce((a, b) => a + b, 0);
+  let leftX = wallPad;
+  const leftDefs = leftAreas.map((a, i) => {
+    const w = Math.round((a / leftSum) * leftTotalW) - 3;
+    const d = { x: leftX, y: wallPad, w, h: aptH, apt: apts[i] };
+    leftX += w + 3;
+    return d;
+  });
+
+  // Right side: apts 3,4,5 — proportional widths
+  const rightStartX = stairX + stairW + 6;
+  const rightTotalW = W - wallPad - rightStartX;
+  const rightAreas = [apts[3].area, apts[4].area, apts[5].area];
+  const rightSum = rightAreas.reduce((a, b) => a + b, 0);
+  let rx = rightStartX;
+  const rightDefs = rightAreas.map((a, i) => {
+    const w = Math.round((a / rightSum) * rightTotalW) - 3;
+    const d = { x: rx, y: wallPad, w, h: aptH, apt: apts[3 + i] };
+    rx += w + 3;
+    return d;
+  });
+
+  const allDefs = [...leftDefs, ...rightDefs];
+
+  // Color variants for free apts by area
+  const areaColor = {
+    35: '#7B9E6E',
+    45: '#6A8FA0',  // blue-grey for 45m
+    60: '#8E7BAF',  // purple-grey for 60m
+  };
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:12px;">`;
+  svg += `<defs>
+    <filter id="sh2"><feDropShadow dx="0" dy="1" stdDeviation="3" flood-opacity="0.1"/></filter>
+  </defs>`;
+
+  // BG
+  svg += `<rect width="${W}" height="${H}" fill="#FAFAFA" rx="12"/>`;
+
+  // Outer wall
+  svg += `<rect x="${wallPad-4}" y="${wallPad-4}" width="${W-wallPad*2+8}" height="${H-wallPad+4}" rx="8" fill="none" stroke="#CCCCCC" stroke-width="2"/>`;
+
+  // Corridor
+  svg += `<rect x="${wallPad-4}" y="${corridorY}" width="${W-wallPad*2+8}" height="${corridorH}" fill="#F0EDEA" rx="0"/>`;
+  svg += `<text x="${W/2}" y="${corridorY + corridorH/2 + 1}" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#AAAAAA" font-family="Cera Pro,sans-serif" font-weight="700" letter-spacing="2">КОРИДОР</text>`;
+
+  // Staircase
+  svg += `<rect x="${stairX}" y="${wallPad-4}" width="${stairW}" height="${aptH+4}" fill="#E8E4DF" rx="4"/>`;
+  // Stair lines
+  for (let i = 1; i < 6; i++) {
+    const sy = wallPad - 4 + i * ((aptH + 4) / 6);
+    svg += `<line x1="${stairX+8}" y1="${sy}" x2="${stairX+stairW-8}" y2="${sy}" stroke="#C8C0B8" stroke-width="1"/>`;
+  }
+  svg += `<text x="${stairX + stairW/2}" y="${wallPad - 4 + (aptH+4)/2}" text-anchor="middle" dominant-baseline="middle" font-size="10" fill="#AAAAAA" font-family="Cera Pro,sans-serif" font-weight="700" letter-spacing="1">ЛЕСТН.</text>`;
+
+  // Apartments
+  allDefs.forEach(d => {
+    const apt = d.apt;
+    const baseColor = apt.free ? areaColor[apt.area] : '#CCCCCC';
+    const cx = d.x + d.w / 2;
+    const cy = d.y + d.h / 2;
+
+    svg += `<g class="apt ${apt.free ? 'free' : 'sold'}"
+      data-num="${apt.num}"
+      data-area="${apt.area}"
+      data-price="${apt.area * PRICE_PER_M}"
+      onmouseenter="showTip(event,this)"
+      onmousemove="moveTip(event)"
+      onmouseleave="hideTip()"
+      onclick="handleAptClick(${apt.num}, ${apt.free})">
+      <rect x="${d.x}" y="${d.y}" width="${d.w}" height="${d.h}" rx="7" fill="${baseColor}"/>
+      <text x="${cx}" y="${cy - 9}" class="apt-label" font-size="11">№${apt.num}</text>
+      <text x="${cx}" y="${cy + 7}" class="apt-label" font-size="10" opacity="0.9">${apt.area} м²</text>
+    </g>`;
+  });
+
+  // Floor label
+  svg += `<text x="${W - wallPad}" y="${H - 6}" text-anchor="end" font-size="10" fill="#AAAAAA" font-family="Cera Pro,sans-serif" font-weight="700" letter-spacing="1">${floor} ЭТАЖ · ПОДЪЕЗД ${entrance}</text>`;
+
+  svg += '</svg>';
+  return svg;
+}
+
+function renderPlan() {
+  document.getElementById('planContainer').innerHTML = buildFloorSVG(curEntrance, curFloor);
+}
+
+function selectEntrance(n) {
+  curEntrance = n;
+  document.querySelectorAll('.plan-tab').forEach((b, i) => b.classList.toggle('active', i === n - 1));
+  renderPlan();
+}
+
+function selectFloor(n) {
+  curFloor = n;
+  document.querySelectorAll('.floor-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.textContent) === n);
+  });
+  renderPlan();
+}
+
+// Update legend to show area-based colors
+function updateLegend() {
+  const legend = document.querySelector('.plan-legend');
+  legend.innerHTML = `
+    <div class="legend-item"><div class="legend-dot" style="background:#7B9E6E"></div>35 м² — свободна</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#6A8FA0"></div>45 м² — свободна</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#8E7BAF"></div>60 м² — свободна</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#CCCCCC"></div>Продана</div>
+  `;
+}
+
+// ── TOOLTIP ──
+const tooltip = document.getElementById('tooltip');
+
+function showTip(e, el) {
+  tooltip.querySelector('#tipNum').textContent = 'Квартира №' + el.dataset.num;
+  tooltip.querySelector('#tipArea').textContent = el.dataset.area + ' м²';
+  tooltip.querySelector('#tipPrice').textContent = parseInt(el.dataset.price).toLocaleString('ru') + ' $';
+  tooltip.classList.add('show');
+  moveTip(e);
+}
+function moveTip(e) {
+  let x = e.clientX + 18, y = e.clientY - 12;
+  if (x + 210 > window.innerWidth) x = e.clientX - 220;
+  if (y + 130 > window.innerHeight) y = e.clientY - 140;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top = y + 'px';
+}
+function hideTip() { tooltip.classList.remove('show'); }
+
+function handleAptClick(num, free) {
+  if (!free) return;
+  document.getElementById('installment').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── CALC ──
+let calcSize = 35;
+
+function selectSize(sz, btn) {
+  calcSize = sz;
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  updateCalc();
+}
+
+function updateCalc() {
+  const total = calcSize * PRICE_PER_M;
+  const down = Math.round(total * 0.4);
+  const rest = total - down;
+  const monthly = Math.round(rest / 36);
+  document.getElementById('calcSize').textContent = calcSize + ' м²';
+  document.getElementById('calcTotal').textContent = total.toLocaleString('ru') + ' $';
+  document.getElementById('calcDown').textContent = down.toLocaleString('ru') + ' $';
+  document.getElementById('calcRest').textContent = rest.toLocaleString('ru') + ' $';
+  document.getElementById('calcMonthly').textContent = monthly.toLocaleString('ru') + ' $ / мес';
+}
+
+// ── GALLERY ──
+const labels = ['Фасад здания','Лестничный пролёт','Кухня-гостиная','Спальня','Придомовая территория','Вид с балкона','Санузел'];
+
+function openLightbox(n) {
+  document.getElementById('lightboxLabel').textContent = labels[n-1] || 'Фото ' + n;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// ── MOBILE MENU ──
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ── INIT ──
+renderPlan();
+updateLegend();
+updateCalc();
+</script>
+</body>
+</html>
